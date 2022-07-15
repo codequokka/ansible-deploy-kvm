@@ -1,0 +1,38 @@
+---
+- name: Create a storage pool dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ kvm_storage_pool_dir }}"
+    owner: "{{ kvm_user }}"
+    group: libvirt
+    mode: "0755"
+    recurse: true
+
+- name: Add a storage pool for storing libvirt images
+  virt_pool:
+    command: define
+    name: "{{ kvm_image_pool_name }}"
+    xml: '{{ lookup("template", "storage_pool.xml.j2") }}'
+
+# Facts will be available as 'ansible_libvirt_pools'
+- name: gather facts on existing virsh pool
+  virt_pool:
+    command: facts
+
+- name: Create the storage pool
+  block:
+    - name: Build the storage pool
+      virt_pool:
+        name: "{{ kvm_image_pool_name }}"
+        command: build
+
+    - name: Ensure the storage pool will be started at boot
+      community.libvirt.virt_pool:
+        name: "{{ kvm_image_pool_name }}"
+        autostart: true
+
+    - name: Start a storage pool
+      community.libvirt.virt_pool:
+        name: "{{ kvm_image_pool_name }}"
+        command: create
+  when: ansible_libvirt_pools[kvm_image_pool_name].state != "active"
