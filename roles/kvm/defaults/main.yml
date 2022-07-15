@@ -1,2 +1,4 @@
 ---
 kvm_user: "{{ ansible_facts['env']['SUDO_USER'] }}"
+kvm_storage_pool_dir: /opt/kvm/images
+kvm_image_pool_name: default
