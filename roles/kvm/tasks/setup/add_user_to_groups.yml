@@ -1,0 +1,6 @@
+---
+- name: Add current user to groups
+  ansible.builtin.user:
+    name: "{{ kvm_user }}"
+    groups: libvirt, kvm
+    append: true

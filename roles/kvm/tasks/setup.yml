@@ -1,0 +1,6 @@
+---
+# Install KVM
+- import_tasks: setup/check_requirements.yml
+- import_tasks: setup/install_apt_packages.yml
+- import_tasks: setup/add_user_to_groups.yml
+- import_tasks: setup/relax_apparmor_enforcement.yml

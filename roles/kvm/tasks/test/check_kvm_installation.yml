@@ -1,0 +1,5 @@
+---
+- name: Check virsh command works
+  ansible.builtin.command: |
+    virsh list --all
+  changed_when: false

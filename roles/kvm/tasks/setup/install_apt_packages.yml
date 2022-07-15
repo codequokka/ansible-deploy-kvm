@@ -1,0 +1,16 @@
+---
+- name: Install apt packages
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - qemu
+      - qemu-kvm
+      - qemu-system-x86
+      - libvirt-dev
+      - libvirt-clients
+      - virt-manager
+      - virtinst
+      - virt-viewer
+      - bridge-utils
+      - cpu-checker
+    update_cache: true

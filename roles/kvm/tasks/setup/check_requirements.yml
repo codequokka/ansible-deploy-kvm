@@ -1,0 +1,18 @@
+---
+- name: Check CPU supports hardware virtualization(VT-x/SVM)
+  ansible.builtin.command: |
+    egrep -c '(vmx|svm)' /proc/cpuinfo
+  changed_when: false
+
+- name: Check CPU supports 64bit
+  ansible.builtin.command: |
+    egrep -c ' lm ' /proc/cpuinfo
+  changed_when: false
+
+- name: Check OS kernel is 64bit
+  ansible.builtin.shell: |
+    set -o pipefail
+    uname -m | grep 'x86_64'
+  args:
+    executable: /bin/bash
+  changed_when: false

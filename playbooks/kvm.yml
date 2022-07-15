@@ -1,0 +1,7 @@
+---
+- name: Setup/Test the kvm environment
+  hosts: localhost
+  # gather_facts: false
+  become: true
+  roles:
+    - kvm

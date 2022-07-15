@@ -1,0 +1,2 @@
+---
+kvm_user: "{{ ansible_facts['env']['SUDO_USER'] }}"

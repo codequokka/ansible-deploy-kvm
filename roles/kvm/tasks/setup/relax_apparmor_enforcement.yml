@@ -1,0 +1,10 @@
+---
+- name: Copy qemu.conf
+  become: true
+  ansible.builtin.copy:
+    src: qemu.conf
+    dest: /etc/libvirt/qemu.conf
+    owner: root
+    group: root
+    mode: "0600"
+  notify: Restart libvirtd service
